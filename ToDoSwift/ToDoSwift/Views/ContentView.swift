@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var isLoggedIn = SessionManager.isLoggedIn
+    @EnvironmentObject private var loginViewModel: LoginViewModel
 
     var body: some View {
-        if isLoggedIn {
-            // Show Todo List when logged in
-            TaskListView(isLoggedIn: $isLoggedIn)
-        } else {
-            // Show Login View when not logged in
-            LoginView(isLoggedIn: $isLoggedIn)
+        NavigationView {
+            if loginViewModel.isLoggedIn {
+                TaskListView()
+            } else {
+                LoginView()
+            }
         }
     }
 }

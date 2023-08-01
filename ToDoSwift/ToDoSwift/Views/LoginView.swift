@@ -8,27 +8,36 @@
 import SwiftUI
 
 struct LoginView: View {
-    @ObservedObject private var loginViewModel = LoginViewModel()
-    @Binding var isLoggedIn: Bool
-    
+    @State private var username = ""
+    @State private var password = ""
+
+    @EnvironmentObject private var loginViewModel: LoginViewModel
+
     var body: some View {
         VStack {
-            TextField("Username", text: $loginViewModel.username)
+            TextField("Username", text: $username)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
-            SecureField("Password", text: $loginViewModel.password)
+
+            SecureField("Password", text: $password)
                 .textFieldStyle(RoundedBorderTextFieldStyle())
                 .padding()
-            
+
             Button("Login") {
-                if loginViewModel.handleLogin() {
-                    isLoggedIn = true
-                    SessionManager.isLoggedIn = true // Persist the login state
-                }
+                loginViewModel.login(username: username, password: password)
             }
             .padding()
+            .disabled(loginViewModel.isLoggingIn)
+
+            if loginViewModel.isLoggingIn {
+                ProgressView("Logging in...")
+                    .padding()
+            }
+        }
+        .alert(isPresented: $loginViewModel.loginError) {
+            Alert(title: Text("Error"), message: Text("Invalid credentials"))
         }
         .padding()
     }
 }
+

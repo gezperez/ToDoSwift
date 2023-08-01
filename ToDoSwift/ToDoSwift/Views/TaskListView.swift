@@ -9,8 +9,8 @@ import SwiftUI
 
 struct TaskListView: View {
     @StateObject private var taskViewModel = TaskViewModel()
+    @EnvironmentObject private var loginViewModel: LoginViewModel
     @State private var isAddTaskViewPresented = false
-    @Binding var isLoggedIn: Bool
     
     var body: some View {
         NavigationView {
@@ -37,18 +37,16 @@ struct TaskListView: View {
                     }
                     
                 }
+                Button("Logout") {
+                                loginViewModel.logout() // Trigger the logout function
+                            }
+                            .padding()
             }
             .navigationBarTitle("Todo List")
             .navigationBarItems(trailing: Button(action: {
                 isAddTaskViewPresented = true
             }) {
                 Image(systemName: "plus")
-            })
-            .navigationBarItems(trailing: Button(action: {
-                isLoggedIn = false
-                SessionManager.isLoggedIn = false // Persist the logout state
-            }) {
-                Text("Logout")
             })
         }
         .sheet(isPresented: $isAddTaskViewPresented) {

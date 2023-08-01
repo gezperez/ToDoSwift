@@ -23,7 +23,7 @@
 		6F8D8B592A789BA800C2CE4C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B582A789BA800C2CE4C /* LoginViewModel.swift */; };
 		6F8D8B5B2A789BC100C2CE4C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B5A2A789BC100C2CE4C /* LoginView.swift */; };
 		6F8D8B5D2A789BFE00C2CE4C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B5C2A789BFE00C2CE4C /* ContentView.swift */; };
-		6F8D8B602A789E5600C2CE4C /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B5F2A789E5600C2CE4C /* SessionManager.swift */; };
+		6F8D8B602A789E5600C2CE4C /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B5F2A789E5600C2CE4C /* LoginManager.swift */; };
 		6F8D8B622A78A0A900C2CE4C /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F8D8B612A78A0A900C2CE4C /* LoginModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +65,7 @@
 		6F8D8B582A789BA800C2CE4C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		6F8D8B5A2A789BC100C2CE4C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		6F8D8B5C2A789BFE00C2CE4C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		6F8D8B5F2A789E5600C2CE4C /* SessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
+		6F8D8B5F2A789E5600C2CE4C /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		6F8D8B612A78A0A900C2CE4C /* LoginModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +94,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F4733402A78AEBA005E5182 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		6F4D05D82A773A1600F54038 = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +124,7 @@
 		6F4D05E32A773A1700F54038 /* ToDoSwift */ = {
 			isa = PBXGroup;
 			children = (
+				6F4733402A78AEBA005E5182 /* Delegates */,
 				6F8D8B5E2A789E4700C2CE4C /* Managers */,
 				6F4D06122A773A8F00F54038 /* ViewModels */,
 				6F4D06112A773A8900F54038 /* Models */,
@@ -197,7 +205,7 @@
 		6F8D8B5E2A789E4700C2CE4C /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				6F8D8B5F2A789E5600C2CE4C /* SessionManager.swift */,
+				6F8D8B5F2A789E5600C2CE4C /* LoginManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -334,7 +342,7 @@
 			files = (
 				6F4D06142A773B4C00F54038 /* TaskModel.swift in Sources */,
 				6F8D8B5D2A789BFE00C2CE4C /* ContentView.swift in Sources */,
-				6F8D8B602A789E5600C2CE4C /* SessionManager.swift in Sources */,
+				6F8D8B602A789E5600C2CE4C /* LoginManager.swift in Sources */,
 				6F3316B92A77535100CCFF76 /* AddTaskViewModel.swift in Sources */,
 				6F4D06162A773BC700F54038 /* TaskViewModel.swift in Sources */,
 				6F4D05E52A773A1700F54038 /* ToDoSwiftApp.swift in Sources */,
@@ -502,6 +510,8 @@
 				DEVELOPMENT_TEAM = HG3KB3UXFA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -540,6 +550,8 @@
 				DEVELOPMENT_TEAM = HG3KB3UXFA;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
