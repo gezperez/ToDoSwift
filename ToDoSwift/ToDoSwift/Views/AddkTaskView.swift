@@ -14,10 +14,10 @@ struct AddTaskView: View {
     @StateObject private var categoryViewModel = CategoryViewModel()
     
     init() {
-            let categoryViewModel = CategoryViewModel() // Initialize CategoryViewModel here
-            self.addTaskViewModel = AddTaskViewModel(categoryViewModel: categoryViewModel) // Pass categoryViewModel
-        }
-
+        let categoryViewModel = CategoryViewModel() // Initialize CategoryViewModel here
+        self.addTaskViewModel = AddTaskViewModel(categoryViewModel: categoryViewModel) // Pass categoryViewModel
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -26,7 +26,7 @@ struct AddTaskView: View {
                 }
                 Section(header: Text("Category")) {
                     Picker("Select Category", selection: $addTaskViewModel.selectedCategoryIndex) {
-                        ForEach(0..<addTaskViewModel.categoryViewModel.categories.count) { index in
+                        ForEach(addTaskViewModel.categoryViewModel.categories.indices, id: \.self) { index in
                             Text(addTaskViewModel.categoryViewModel.categories[index].name).tag(index)
                         }
                     }
@@ -38,7 +38,7 @@ struct AddTaskView: View {
             .navigationBarTitle("Add Task", displayMode: .inline)
             .navigationBarItems(trailing: Button("Add") {
                 addTaskViewModel.addTask(taskViewModel: taskViewModel)
-                addTaskViewModel.objectWillChange.send() 
+                addTaskViewModel.objectWillChange.send()
                 presentationMode.wrappedValue.dismiss()
             })
         }
