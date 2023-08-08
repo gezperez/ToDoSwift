@@ -10,6 +10,6 @@ import Foundation
 struct Task: Identifiable, Codable {
     let id: UUID
     var title: String
-    var category: Category?
+    var category: Category
     var isCompleted: Bool
 }

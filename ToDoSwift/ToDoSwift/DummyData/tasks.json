@@ -1,0 +1,27 @@
+//
+//  Tasks.swift
+//  ToDoSwift
+//
+//  Created by Ezequiel Perez on 01/08/2023.
+//
+
+[
+    {
+        "id": "1",
+        "title": "Buy groceries",
+        "category": "Shopping",
+        "isCompleted": false
+    },
+    {
+        "id": "2",
+        "title": "Do laundry",
+        "category": "Household",
+        "isCompleted": false
+    },
+    {
+        "id": "3",
+        "title": "Read a book",
+        "category": "Hobby",
+        "isCompleted": false
+    }
+]

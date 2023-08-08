@@ -8,15 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject private var loginViewModel: LoginViewModel
-
+    @EnvironmentObject private var loginManager: LoginManager
+    
     var body: some View {
         NavigationView {
-            if loginViewModel.isLoggedIn {
+            if (loginManager.getLoginType() != .unknown) {
                 TaskListView()
             } else {
                 LoginView()
             }
+        }
+        .onAppear {
+            loginManager.checkUserSession()
         }
     }
 }

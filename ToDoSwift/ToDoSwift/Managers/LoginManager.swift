@@ -1,37 +1,100 @@
 //
-//  SessionManager.swift
+//  LoginManager.swift
 //  ToDoSwift
 //
-//  Created by Ezequiel Perez on 31/07/2023.
+//  Created by Ezequiel Perez on 08/08/2023.
 //
 
 import Foundation
 
-class LoginManager {
-    private let userDefaults = UserDefaults.standard
-    private let isLoggedInKey = "isLoggedIn"
+enum SignInType: String {
+    case google
+    case facebook
+    case regular
+    case unknown
+}
 
-    var isLoggedIn: Bool {
-        get {
-            return userDefaults.bool(forKey: isLoggedInKey)
-        }
-        set {
-            userDefaults.set(newValue, forKey: isLoggedInKey)
+class LoginManager: ObservableObject {
+    @Published var isLoggedIn = false
+    @Published var isLoading = false
+    @Published var loginError = false
+    
+    private var regularAuthViewModel: RegularAuthViewModel
+    private var googleAuthViewModel: GoogleAuthViewModel
+    
+    init(regularAuthViewModel: RegularAuthViewModel, googleAuthViewModel: GoogleAuthViewModel) {
+        self.regularAuthViewModel = regularAuthViewModel
+        self.googleAuthViewModel = googleAuthViewModel
+    }
+    
+    static func setLoginType(_ type: SignInType) {
+        UserDefaultsManager.set(type.rawValue, forKey: .signInType)
+    }
+    
+
+    
+    func getLoginType() -> SignInType {
+        if let signInTypeString: String = UserDefaultsManager.get(forKey: .signInType),
+           let signInType = SignInType(rawValue: signInTypeString) {
+            return signInType
+            
+        } else {
+            return SignInType.unknown
         }
     }
-
-    func login(username: String, password: String) -> Bool {
-        // Simulate a 5-second timeout using DispatchQueue
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-            // Dummy login validation. Replace this with actual authentication logic.
-            if username == "user" && password == "password" {
-                self.isLoggedIn = true
-            } else {
-                self.isLoggedIn = false
+    
+    func checkUserSession() {
+        if (self.getLoginType() != .unknown) {
+            self.isLoading = true
+            if (self.getLoginType() == .google) {
+                return googleAuthViewModel.checkPreviousSignIn {
+                    self.isLoading = false
+                }
+            }
+            
+            if (self.getLoginType() == .regular) {
+                return regularAuthViewModel.checkPreviousSignIn {
+                    self.isLoading = false
+                }
             }
         }
-
-        // Return true to indicate the login process has started.
-        return true
+    }
+    
+    func setSignInSuccess(signInType: SignInType) {
+        self.isLoading = false
+        LoginManager.setLoginType(signInType)
+    }
+    
+    func setSignOutSuccess() {
+        self.isLoading = false
+        LoginManager.setLoginType(.unknown)
+    }
+    
+    func signIn(signInType: SignInType, username: String, password: String) {
+        isLoading = true
+        
+        if signInType == .regular {
+            regularAuthViewModel.signIn(username: username, password: password) {
+                self.setSignInSuccess(signInType: .regular)
+            }
+        } else if signInType == .google {
+            googleAuthViewModel.signIn {
+                self.setSignInSuccess(signInType: .google)
+            }
+        }
+    }
+    
+    func signOut() {
+        isLoading = true
+        
+        if self.getLoginType() == .regular {
+            regularAuthViewModel.signOut {
+                self.setSignOutSuccess()
+            }
+        } else if self.getLoginType() == .google {
+            googleAuthViewModel.signOut {
+                self.setSignOutSuccess()
+            }
+        }
     }
 }

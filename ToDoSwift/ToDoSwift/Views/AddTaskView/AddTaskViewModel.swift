@@ -16,15 +16,15 @@ class AddTaskViewModel: ObservableObject {
             self.categoryViewModel = categoryViewModel
         }
     
-    var selectedCategory: Category? {
-            return categoryViewModel.categories.indices.contains(selectedCategoryIndex) ? categoryViewModel.categories[selectedCategoryIndex] : nil
+    var selectedCategory: Category {
+        return categoryViewModel.categories.indices.contains(selectedCategoryIndex) ? categoryViewModel.categories[selectedCategoryIndex] : categoryViewModel.categories.first!
         }
     
-    func addTask(taskViewModel: TaskViewModel) {
+    func addTask(taskListViewModel: TaskListViewModel) {
         guard !taskName.isEmpty else { return }
-        let category = selectedCategory ?? categoryViewModel.categories.first
+        let category = selectedCategory
         let newTaskID = UUID()
-        taskViewModel.addTask(id: newTaskID, title: taskName, category: category)
+        taskListViewModel.addTask(id: newTaskID, title: taskName, category: category)
     }
     
     func setSelectedCategory(index: Int) {

@@ -10,7 +10,7 @@ import SwiftUI
 struct AddTaskView: View {
     @Environment(\.presentationMode) private var presentationMode
     @ObservedObject var addTaskViewModel: AddTaskViewModel
-    @EnvironmentObject private var taskViewModel: TaskViewModel
+    @EnvironmentObject private var taskListViewModel: TaskListViewModel
     @StateObject private var categoryViewModel = CategoryViewModel()
     
     init() {
@@ -37,10 +37,16 @@ struct AddTaskView: View {
             }
             .navigationBarTitle("Add Task", displayMode: .inline)
             .navigationBarItems(trailing: Button("Add") {
-                addTaskViewModel.addTask(taskViewModel: taskViewModel)
+                addTaskViewModel.addTask(taskListViewModel: taskListViewModel)
                 addTaskViewModel.objectWillChange.send()
                 presentationMode.wrappedValue.dismiss()
             })
         }
+    }
+}
+
+struct AddTask_Previews: PreviewProvider {
+    static var previews: some View {
+        AddTaskView()
     }
 }
